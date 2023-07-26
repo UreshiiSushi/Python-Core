@@ -66,7 +66,7 @@
 #     print(chunk)
 #endregion
 
-#region Ex.15
+#region Ex. 15
 
 result = None
 operand = None
@@ -108,7 +108,5 @@ while True:
         else:
             print(user_input + " not + or - or * or /. Try again")
             continue
-                    
-        
 
 #endregion
