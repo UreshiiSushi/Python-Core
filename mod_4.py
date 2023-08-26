@@ -1,3 +1,7 @@
+from random import randint
+from pathlib import Path
+import sys
+
 #region Ex. 1
 # def amount_payment(payment):
 #     sum_pay = 0
@@ -120,35 +124,101 @@ print('Ex. 09:')
 def is_valid_pin_codes(pin_codes: list) -> bool:
     if not len(pin_codes):
         return False
-    pin_set = set(pin_codes)
-    if len(pin_codes) != len(pin_set):
+    
+    if len(pin_codes) != len(set(pin_codes)):
         return False
-    else:
-        for i in pin_codes:
-            if (len(i) == 4) and (type(i) == 'str') and (set(i) in set('1234567890')):
-                continue
-            else:
+    
+    for i in pin_codes:
+        if not i.isdigit():
+            return False
+        elif len(i) != 4:
+            return False
+        else:
+            try:
+                s = str(i)
+            except ValueError:
                 return False
     return True
             
                 
             
-print(is_valid_pin_codes(['1101', '9034', '0011']), end='\n')
+print(is_valid_pin_codes(['1101', '9034', '0011', '1102']), end='\n')
 
 #endregion
 
 #region Ex. 10
+print('Ex. 10')
+
+def get_random_password():
+    pswd = ''
+    for i in range(0, 8):
+        pswd += chr(randint(40, 126))
+    return pswd
+
+print(get_random_password())
 
 #endregion
+
 #region Ex. 11
+print('Ex. 11')
 
+def is_valid_password(password):
+    if len(password) != 8:
+        return False
+    has_num = False
+    has_lower = False
+    has_up = False
+    for i in password:
+        if ord(i) in range(48, 58):
+            has_num = True
+        elif ord(i) in range(65, 91):
+            has_up = True
+        elif ord(i) in range(97, 123):
+            has_lower = True
+
+    return has_num and has_lower and has_up
+
+print(is_valid_password(get_random_password()))
 #endregion
+
 #region Ex. 12
+print('Ex. 12')
+def get_password():
+    is_valid = False
+    pswd = ''
+    while not is_valid:
+        pswd = get_random_password()
+        is_valid = is_valid_password(pswd)
+    return pswd
 
+print(get_password())
 #endregion
+
 #region Ex. 13
+print('Ex. 13')
+p = Path('d:/images/')  
+def parse_folder(path: Path) -> tuple:
+    files = []
+    folders = []
+    for i in path.iterdir():
+        if i.is_dir():
+            folders.append(i.name)
+        elif i.is_file():
+            files.append(i.name)
+    return files, folders
+
+print(parse_folder(p))
 
 #endregion
-#region Ex. 14
 
+#region Ex. 14
+print('Ex. 14')
+print(sys.argv)
+def parse_args():
+    result = ""
+    args = sys.argv
+    result = ' '.join(args[1:])
+
+    return result
+print(parse_args())
 #endregion
