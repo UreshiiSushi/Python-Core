@@ -2,6 +2,7 @@ import sys
 from pathlib import Path
 import os
 import shutil
+import re
 
 CATEGORIES = {"audio": [".mp3", ".wav", ".flac", ".wma"],
               "video": [".mkv", ".avi", ".mov", ".mp4"],
@@ -20,7 +21,9 @@ for c, l in zip(CYRILLIC_SYMBOLS, TRANSLATION):
 
 
 def normalize(file: Path):
-    return file.name.translate(TRANS)
+    new_name = file.name.translate(TRANS)
+    new_name = re.sub(r"[^a-z0-9A-Z.]", "_", new_name)
+    return new_name
 
 
 def write_in_file(list: list, path: Path):
