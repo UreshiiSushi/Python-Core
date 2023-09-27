@@ -1,6 +1,7 @@
 from pathlib import Path
 import re
 import base64
+import shutil
 
 # region 01
 print("Ex.01")
@@ -215,10 +216,24 @@ def encode_data_to_base64(data: list):
     return encode_list
 # endregion
 
+
 # region 13
+print("Ex.13")
+
+
+def create_backup(path: Path, file_name: Path, employee_residence: dict):
+    with open(path+'/'+file_name, "wb") as file:
+        for i, k in employee_residence.items():
+            line = f"{i} {k}\n".encode()
+            file.write(line)
+    return shutil.make_archive("backup_folder", "zip", path)
 
 # endregion
 
 # region 14
+print("Ex.14")
 
+
+def unpack(archive_path, path_to_unpack):
+    shutil.unpack_archive(archive_path, path_to_unpack)
 # endregion
